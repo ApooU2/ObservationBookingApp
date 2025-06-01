@@ -1,0 +1,32 @@
+{
+  "name": "observatory-booking-app",
+  "version": "1.0.0",
+  "description": "A comprehensive observatory time booking app with multi-platform support",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../mobile && npm install",
+    "start": "cd backend && npm start",
+    "mobile:ios": "cd mobile && npx cap run ios",
+    "mobile:android": "cd mobile && npx cap run android"
+  },
+  "keywords": [
+    "observatory",
+    "booking",
+    "telescope",
+    "scheduling",
+    "pwa",
+    "mobile",
+    "wordpress"
+  ],
+  "author": "Observatory Booking App",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
