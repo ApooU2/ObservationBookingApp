@@ -1,9 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install",
-  "framework": "nextjs",
+  "buildCommand": "npm run build:frontend",
+  "outputDirectory": "frontend/build",
+  "installCommand": "npm run install:all",
   "regions": ["iad1"],
   "env": {
     "NODE_ENV": "production"
@@ -11,11 +10,6 @@
   "build": {
     "env": {
       "NODE_ENV": "production"
-    }
-  },
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
     }
   }
 }
