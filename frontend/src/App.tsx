@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import Header from './components/Header';
+import ErrorBoundary from './components/ErrorBoundary';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -120,17 +121,19 @@ const App: React.FC = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <AuthProvider>
           <Router>
-            <AppContent />
-            <Toaster 
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: '#363636',
-                  color: '#fff',
-                },
-              }}
-            />
+            <ErrorBoundary>
+              <AppContent />
+              <Toaster 
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#363636',
+                    color: '#fff',
+                  },
+                }}
+              />
+            </ErrorBoundary>
           </Router>
         </AuthProvider>
       </LocalizationProvider>

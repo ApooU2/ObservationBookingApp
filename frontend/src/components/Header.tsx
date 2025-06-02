@@ -10,7 +10,7 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
-import { Visibility, AccountCircle, Logout } from '@mui/icons-material';
+import { Visibility, AccountCircle, Logout, AdminPanelSettings } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -38,6 +38,11 @@ const Header: React.FC = () => {
     handleClose();
   };
 
+  const handleAdminPanel = () => {
+    navigate('/admin');
+    handleClose();
+  };
+
   return (
     <AppBar position="static" sx={{ backgroundColor: '#1a237e' }}>
       <Toolbar>
@@ -59,6 +64,21 @@ const Header: React.FC = () => {
             <Button color="inherit" onClick={() => navigate('/book')}>
               Book Time
             </Button>
+            {user?.role === 'admin' && (
+              <Button 
+                color="inherit" 
+                onClick={() => navigate('/admin')}
+                sx={{ 
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  }
+                }}
+                startIcon={<AdminPanelSettings />}
+              >
+                Admin Panel
+              </Button>
+            )}
             
             <IconButton
               size="large"
@@ -92,6 +112,12 @@ const Header: React.FC = () => {
                 <AccountCircle sx={{ mr: 1 }} />
                 Profile
               </MenuItem>
+              {user?.role === 'admin' && (
+                <MenuItem onClick={handleAdminPanel}>
+                  <AdminPanelSettings sx={{ mr: 1 }} />
+                  Admin Panel
+                </MenuItem>
+              )}
               <MenuItem onClick={handleLogout}>
                 <Logout sx={{ mr: 1 }} />
                 Logout
