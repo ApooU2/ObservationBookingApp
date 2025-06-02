@@ -88,9 +88,9 @@ cd backend && npm run seed && cd ..
 ```
 
 The application will be available at:
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:5000
-- **API Documentation**: http://localhost:5000/api
+- **Frontend**: http://localhost:30002
+- **Backend API**: http://localhost:30001
+- **API Documentation**: http://localhost:30001/api
 
 ### 4. Default Login Credentials
 

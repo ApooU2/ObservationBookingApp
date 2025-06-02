@@ -10,7 +10,7 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
-import { Visibility, AccountCircle, Logout, AdminPanelSettings } from '@mui/icons-material';
+import { Visibility, AccountCircle, Logout, Settings } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -74,7 +74,7 @@ const Header: React.FC = () => {
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                   }
                 }}
-                startIcon={<AdminPanelSettings />}
+                startIcon={<Settings />}
               >
                 Admin Panel
               </Button>
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
               </MenuItem>
               {user?.role === 'admin' && (
                 <MenuItem onClick={handleAdminPanel}>
-                  <AdminPanelSettings sx={{ mr: 1 }} />
+                  <Settings sx={{ mr: 1 }} />
                   Admin Panel
                 </MenuItem>
               )}

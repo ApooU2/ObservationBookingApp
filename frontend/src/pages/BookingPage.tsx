@@ -111,7 +111,7 @@ const BookingPage: React.FC = () => {
     setError('');
 
     try {
-      await api.post('/bookings', {
+      const response = await api.post('/bookings', {
         telescope: selectedTelescope,
         startTime: selectedSlot.startTime,
         endTime: selectedSlot.endTime,
@@ -119,7 +119,13 @@ const BookingPage: React.FC = () => {
         notes: notes.trim(),
       });
 
-      toast.success('Booking created successfully!');
+      // Show different message based on auto-confirmation
+      if (response.data.booking?.status === 'confirmed') {
+        toast.success('🎉 Booking created and automatically confirmed! No conflicts found.');
+      } else {
+        toast.success('Booking created successfully! Pending confirmation.');
+      }
+      
       navigate('/bookings');
     } catch (err: any) {
       console.error('Booking error:', err.response?.data);

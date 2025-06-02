@@ -1,0 +1,33 @@
+# Multi-stage build for backend
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY backend/package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+# Production stage
+FROM node:18-alpine AS production
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+
+WORKDIR /app
+
+# Copy built dependencies from builder stage
+COPY --from=builder /app/node_modules ./node_modules
+COPY backend/package*.json ./
+COPY backend/src ./src
+COPY backend/tsconfig.json ./
+
+# Build the application
+RUN npm run build
+
+# Remove dev dependencies and source files
+RUN npm prune --production
+RUN rm -rf src tsconfig.json
+
+USER nodejs
+
+EXPOSE 30001
+
+CMD ["npm", "start"]

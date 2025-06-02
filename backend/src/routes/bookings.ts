@@ -7,6 +7,32 @@ import emailService from '../services/emailService';
 
 const router = express.Router();
 
+// Helper function to check for booking conflicts
+const checkBookingConflicts = async (
+  telescopeId: string, 
+  startTime: Date, 
+  endTime: Date, 
+  excludeBookingId?: string
+) => {
+  const query: any = {
+    telescope: telescopeId,
+    status: { $in: ['pending', 'confirmed'] },
+    $or: [
+      {
+        startTime: { $lt: endTime },
+        endTime: { $gt: startTime }
+      }
+    ]
+  };
+
+  // Exclude current booking if updating
+  if (excludeBookingId) {
+    query._id = { $ne: excludeBookingId };
+  }
+
+  return await Booking.findOne(query);
+};
+
 // Get all bookings for a user
 router.get('/', async (req: any, res) => {
   try {
@@ -116,30 +142,34 @@ router.post('/', [
       return res.status(400).json({ error: 'Telescope not available' });
     }
 
-    // Check for time slot conflicts
-    const conflictingBooking = await Booking.findOne({
+    // Check for time slot conflicts using helper function
+    const conflictingBooking = await checkBookingConflicts(
       telescope,
-      status: { $in: ['pending', 'confirmed'] },
-      $or: [
-        {
-          startTime: { $lt: end.toDate() },
-          endTime: { $gt: start.toDate() }
-        }
-      ]
-    });
+      start.toDate(),
+      end.toDate()
+    );
 
     if (conflictingBooking) {
-      return res.status(400).json({ error: 'Time slot is already booked' });
+      return res.status(400).json({ 
+        error: 'Time slot is already booked',
+        conflictingBooking: {
+          id: conflictingBooking._id,
+          startTime: conflictingBooking.startTime,
+          endTime: conflictingBooking.endTime,
+          status: conflictingBooking.status
+        }
+      });
     }
 
-    // Create booking
+    // Auto-confirm booking since there are no conflicts
     const booking = new Booking({
       user: req.user._id,
       telescope,
       startTime: start.toDate(),
       endTime: end.toDate(),
       purpose,
-      notes
+      notes,
+      status: 'confirmed' // Auto-confirm when no conflicts
     });
 
     await booking.save();
@@ -163,11 +193,12 @@ router.post('/', [
     const io = req.app.get('io');
     io.to(`telescope-${telescope}`).emit('booking-created', {
       booking,
-      user: req.user.name
+      user: req.user.name,
+      status: 'confirmed' // Include status in real-time update
     });
 
     res.status(201).json({
-      message: 'Booking created successfully',
+      message: 'Booking created and automatically confirmed',
       booking
     });
   } catch (error: any) {

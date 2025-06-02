@@ -42,8 +42,8 @@ def print_completed_work():
 def print_current_status():
     print("🟢 CURRENT STATUS:")
     print("-" * 50)
-    print("  • Backend: ✅ RUNNING (http://localhost:5001)")
-    print("  • Frontend: ✅ RUNNING (http://localhost:3000)")
+    print("  • Backend: ✅ RUNNING (http://localhost:30001)")
+    print("  • Frontend: ✅ RUNNING (http://localhost:30002)")
     print("  • Database: ✅ CONNECTED (MongoDB)")
     print("  • Sample Data: ✅ SEEDED")
     print()
@@ -89,11 +89,11 @@ def print_commands():
     print("-" * 50)
     print("  Backend:")
     print("    cd backend && npm run dev")
-    print("    # Runs on http://localhost:5001")
+    print("    # Runs on http://localhost:30001")
     print()
     print("  Frontend:")
     print("    cd frontend && npm start")
-    print("    # Runs on http://localhost:3000")
+    print("    # Runs on http://localhost:30002")
     print()
     print("  Database:")
     print("    brew services start mongodb/brew/mongodb-community")
@@ -114,7 +114,7 @@ def print_commands():
 def print_api_endpoints():
     print("🔗 API ENDPOINTS:")
     print("-" * 50)
-    print("  Base URL: http://localhost:5001/api")
+    print("  Base URL: http://localhost:30001/api")
     print()
     print("  Authentication:")
     print("    POST /auth/register - User registration")
@@ -212,7 +212,7 @@ def main():
     print("=" * 80)
     print("🎉 PROJECT STATUS: FULLY FUNCTIONAL DEVELOPMENT ENVIRONMENT")
     print("📝 The observatory booking app is ready for development and testing!")
-    print("🌐 Visit http://localhost:3000 to start using the application")
+    print("🌐 Visit http://localhost:30002 to start using the application")
     print("=" * 80)
 
 if __name__ == "__main__":

@@ -2,6 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
+// Targeted extension error suppression
+window.addEventListener('error', (event) => {
+  if (event.filename && (
+    event.filename.includes('chrome-extension://') ||
+    event.filename.includes('egjidjbpglichdcondbcbdnbeeppgdph')
+  )) {
+    console.warn('[Extension Error Suppressed]:', event.message);
+    event.preventDefault();
+    return false;
+  }
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  if (event.reason?.stack && (
+    event.reason.stack.includes('chrome-extension://') ||
+    event.reason.stack.includes('egjidjbpglichdcondbcbdnbeeppgdph')
+  )) {
+    console.warn('[Extension Promise Rejection Suppressed]:', event.reason.message);
+    event.preventDefault();
+    return false;
+  }
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

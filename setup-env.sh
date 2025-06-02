@@ -148,8 +148,8 @@ setup_environment_files() {
     # Frontend environment
     if [ ! -f "frontend/.env" ]; then
         cat > frontend/.env << EOF
-REACT_APP_API_URL=http://localhost:5000/api
-REACT_APP_SOCKET_URL=http://localhost:5000
+REACT_APP_API_URL=http://localhost:30001/api
+REACT_APP_SOCKET_URL=http://localhost:30001
 REACT_APP_APP_NAME=Observatory Booking App
 REACT_APP_VERSION=1.0.0
 EOF

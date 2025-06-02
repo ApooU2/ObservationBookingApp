@@ -17,7 +17,19 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI
+    // Check if it's from a browser extension before setting error state
+    const isExtensionError = error.stack && (
+      error.stack.includes('chrome-extension://') ||
+      error.stack.includes('egjidjbpglichdcondbcbdnbeeppgdph')
+    );
+    
+    if (isExtensionError) {
+      console.warn('Browser extension error ignored in getDerivedStateFromError:', error.message);
+      // Don't set error state for extension errors
+      return { hasError: false };
+    }
+    
+    // Update state so the next render will show the fallback UI for real app errors
     return { hasError: true, error };
   }
 
@@ -25,13 +37,11 @@ class ErrorBoundary extends Component<Props, State> {
     // Check if it's from a browser extension
     const isExtensionError = error.stack && (
       error.stack.includes('chrome-extension://') ||
-      error.stack.includes('moz-extension://') ||
-      error.stack.includes('inpage.js') ||
-      error.message.includes('extension')
+      error.stack.includes('egjidjbpglichdcondbcbdnbeeppgdph')
     );
     
     if (isExtensionError) {
-      console.warn('Browser extension error ignored in ErrorBoundary:', error.message);
+      console.warn('Browser extension error ignored in componentDidCatch:', error.message);
       // Reset the error state to prevent showing error UI
       setTimeout(() => {
         this.setState({ hasError: false, error: undefined });
@@ -56,15 +66,12 @@ class ErrorBoundary extends Component<Props, State> {
       // Check if it's a browser extension error
       const isExtensionError = this.state.error?.stack && (
         this.state.error.stack.includes('chrome-extension://') ||
-        this.state.error.stack.includes('moz-extension://') ||
-        this.state.error.stack.includes('inpage.js') ||
-        this.state.error.message?.includes('extension')
+        this.state.error.stack.includes('egjidjbpglichdcondbcbdnbeeppgdph')
       );
       
       if (isExtensionError) {
         // Don't show error boundary for extension errors, just render children
-        return this.props.children;
-      }
+        console.warn('Extension error detected in render, ignoring:', this.state.error?.message);
         return this.props.children;
       }
 
