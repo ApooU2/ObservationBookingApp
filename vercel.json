@@ -1,15 +1,41 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm ci && npm run build",
-  "outputDirectory": "frontend/build",
-  "installCommand": "echo 'Skipping root install'",
-  "regions": ["iad1"],
+  "name": "observatory-booking-frontend",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "framework": null,
+  "buildCommand": "cd apps/frontend && npm ci && npm run build",
+  "outputDirectory": "apps/frontend/build",
+  "installCommand": "echo 'Dependencies installed in build command'",
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "REACT_APP_API_URL": "https://your-backend-api.com/api"
   },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
+  "functions": {},
+  "rewrites": [
+    {
+      "source": "/((?!static|api|favicon.ico|manifest.json|sw.js).*)",
+      "destination": "/index.html"
     }
-  }
+  ],
+  "headers": [
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(html|json|js|css))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
 }

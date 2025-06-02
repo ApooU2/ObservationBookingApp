@@ -1,0 +1,63 @@
+# Dependencies
+node_modules
+*/node_modules
+**/node_modules
+
+# Build outputs that should not be uploaded (Vercel will generate fresh build)
+apps/frontend/build
+apps/backend/dist
+
+# Backend code (not needed for frontend-only deployment)
+apps/backend/
+backend/
+
+# Old frontend directory (superseded by apps/frontend)
+frontend/
+
+# Development and local files
+*.log
+.env.local
+.env.development
+.env.test
+.DS_Store
+
+# Mobile app
+mobile/
+
+# WordPress plugin
+wordpress-plugin/
+
+# Docker and production infrastructure files
+Dockerfile.*
+docker-compose*.yml
+nginx*.conf
+*.sh
+*.py
+requirements.txt
+logrotate.conf
+PRODUCTION-SECURITY.md
+
+# Git and IDE files
+.git/
+.vscode/
+.idea/
+
+# Package manager files that might conflict
+package-lock.json
+yarn.lock
+
+# Test and documentation that don't need deployment
+test-deployment.sh
+VERCEL-DEPLOYMENT.md
+
+# Docker files
+docker-compose*.yml
+Dockerfile*
+
+# Scripts
+*.sh
+*.py
+
+# Logs
+logs/
+*.log
