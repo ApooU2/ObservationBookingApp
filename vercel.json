@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:frontend",
+  "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/build",
-  "installCommand": "npm run install:all",
+  "installCommand": "cd frontend && npm install",
   "regions": ["iad1"],
   "env": {
     "NODE_ENV": "production"
