@@ -1,3 +1,8 @@
+# Root package.json that might confuse Vercel
+package.json
+package-lock.json
+yarn.lock
+
 # Dependencies
 node_modules
 */node_modules
@@ -9,7 +14,9 @@ apps/backend/dist
 
 # Backend code (not needed for frontend-only deployment)
 apps/backend/
+apps/backend/**
 backend/
+backend/**
 
 # Old frontend directory (superseded by apps/frontend)
 frontend/
@@ -20,12 +27,15 @@ frontend/
 .env.development
 .env.test
 .DS_Store
+.env
 
 # Mobile app
 mobile/
+mobile/**
 
 # WordPress plugin
 wordpress-plugin/
+wordpress-plugin/**
 
 # Docker and production infrastructure files
 Dockerfile.*
@@ -39,16 +49,23 @@ PRODUCTION-SECURITY.md
 
 # Git and IDE files
 .git/
+.gitignore
 .vscode/
 .idea/
 
-# Package manager files that might conflict
-package-lock.json
-yarn.lock
-
-# Test and documentation that don't need deployment
+# Scripts and documentation that don't need deployment
 test-deployment.sh
 VERCEL-DEPLOYMENT.md
+README.md
+build-all.sh
+deploy*.sh
+setup*.sh
+start-dev.sh
+*.py
+
+# Logs directory
+logs/
+**/logs/
 
 # Docker files
 docker-compose*.yml

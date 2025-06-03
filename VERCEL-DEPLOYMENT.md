@@ -1,118 +1,121 @@
 # Observatory Booking App - Vercel Deployment Guide
 
+## 🚨 **IMPORTANT: Fixing Infinite Build Loop**
+
+If Vercel is looping and trying to build both frontend and backend, follow these steps:
+
+### Step 1: Configure Project Settings in Vercel Dashboard
+
+1. Go to your project in Vercel Dashboard
+2. Navigate to **Settings** → **General**
+3. Set these configurations:
+
+**Build & Output Settings:**
+- **Framework Preset**: `Other`
+- **Root Directory**: Leave empty (use repository root)
+- **Build Command**: `cd apps/frontend && npm install && npm run build`
+- **Output Directory**: `apps/frontend/build`
+- **Install Command**: Leave empty or set to `echo "Custom build"`
+
+### Step 2: Environment Variables
+
+Add these in **Settings** → **Environment Variables**:
+
+```
+NODE_ENV=production
+REACT_APP_API_URL=https://your-backend-api.com/api
+SKIP_PREFLIGHT_CHECK=true
+DISABLE_ESLINT_PLUGIN=true
+```
+
+**⚠️ Replace `https://your-backend-api.com/api` with your actual backend URL**
+
+### Step 3: Ignored Paths
+
+Ensure your `.vercelignore` file excludes:
+- Root `package.json`
+- Backend directories
+- All non-frontend code
+
+### Alternative Solution: Deploy from Subdirectory
+
+If the loop continues, try deploying directly from the frontend folder:
+
+1. In Vercel Dashboard, set **Root Directory** to: `apps/frontend`
+2. Change **Build Command** to: `npm install && npm run build`
+3. Change **Output Directory** to: `build`
+
 ## 🚀 Deployment Steps
 
-This guide will help you deploy the Observatory Booking App frontend to Vercel.
+### Prerequisites
 
-### 1. Prerequisites
+- Vercel account
+- Backend API deployed separately (required!)
+- Git repository
 
-- Vercel account (sign up at [vercel.com](https://vercel.com))
-- Git repository with your code
-- Backend API deployed separately (required for the frontend to function)
-
-### 2. Backend Deployment (First)
-
-⚠️ **Important**: You must deploy the backend API first, as the frontend needs to connect to it.
-
-The backend can be deployed to:
-- Railway
-- Render
-- DigitalOcean App Platform
-- AWS/Google Cloud/Azure
-- Any Node.js hosting service
-
-Make note of your backend API URL (e.g., `https://your-backend.railway.app/api`)
-
-### 3. Vercel Deployment
-
-#### Option A: Deploy via Vercel Dashboard
+### Method 1: Vercel Dashboard
 
 1. Go to [vercel.com/new](https://vercel.com/new)
 2. Import your Git repository
-3. Configure the project:
-   - **Framework Preset**: Other (or None)
-   - **Root Directory**: Leave empty (use repository root)
-   - **Build Command**: `cd apps/frontend && npm ci && npm run build`
-   - **Output Directory**: `apps/frontend/build`
-   - **Install Command**: `echo 'Dependencies installed in build command'`
+3. Configure as described in Step 1 above
+4. Add environment variables from Step 2
+5. Deploy
 
-4. Add Environment Variables:
-   ```
-   NODE_ENV=production
-   REACT_APP_API_URL=https://your-backend-api.com/api
-   ```
-   ⚠️ Replace `https://your-backend-api.com/api` with your actual backend API URL
+### Method 2: Vercel CLI
 
-5. Click "Deploy"
+```bash
+# Install Vercel CLI
+npm i -g vercel
 
-#### Option B: Deploy via Vercel CLI
+# Login
+vercel login
 
-1. Install Vercel CLI:
-   ```bash
-   npm i -g vercel
-   ```
+# Deploy with custom settings
+vercel --build-env NODE_ENV=production --build-env REACT_APP_API_URL=https://your-api.com/api
+```
 
-2. Login to Vercel:
-   ```bash
-   vercel login
-   ```
+## 🔧 Troubleshooting Build Loops
 
-3. In your project root, run:
-   ```bash
-   vercel
-   ```
+### Problem: Vercel keeps building backend
+**Solution**: Ensure `.vercelignore` excludes all backend files and root `package.json`
 
-4. Follow the prompts and configure as described in Option A
+### Problem: Multiple package.json detected
+**Solution**: Set Root Directory to `apps/frontend` in Vercel settings
 
-### 4. Configuration Notes
+### Problem: Dependencies not installing
+**Solution**: Use full install command: `cd apps/frontend && npm install && npm run build`
 
-- The `vercel.json` file is already configured for this React app
-- It includes proper routing for single-page applications
-- Static assets are cached for optimal performance
-- The build excludes unnecessary files via `.vercelignore`
+### Problem: Environment variables not working
+**Solution**: Set them in both Vercel dashboard AND in `vercel.json` build.env
 
-### 5. Environment Variables
+## 📁 Expected File Structure for Deployment
 
-Update the `REACT_APP_API_URL` environment variable in Vercel dashboard:
+```
+apps/frontend/
+├── package.json          ← This should be the main package.json for build
+├── src/
+├── public/
+└── build/               ← Generated during deployment
+```
 
-1. Go to your project on Vercel
-2. Navigate to Settings → Environment Variables
-3. Update `REACT_APP_API_URL` with your backend URL
-4. Redeploy the project
+## 🎯 Key Points
 
-### 6. Custom Domain (Optional)
+1. **Frontend Only**: This deploys ONLY the React frontend
+2. **Backend Separate**: Deploy backend to Railway, Render, or similar
+3. **API URL**: Must be set correctly in environment variables
+4. **No Monorepo**: Vercel treats this as a single React app
 
-1. Go to your project settings in Vercel
-2. Navigate to Domains
-3. Add your custom domain
-4. Update DNS records as instructed
+## 📞 Emergency Fix
 
-### 7. Troubleshooting
+If still looping, try this minimal `vercel.json`:
 
-#### Build Failures
-- Check that `apps/frontend/package.json` exists
-- Verify all dependencies are properly listed
-- Check build logs for specific errors
+```json
+{
+  "version": 2,
+  "buildCommand": "cd apps/frontend && npm install && npm run build",
+  "outputDirectory": "apps/frontend/build",
+  "installCommand": null
+}
+```
 
-#### Runtime Issues
-- Verify `REACT_APP_API_URL` is set correctly
-- Check browser console for network errors
-- Ensure backend API is accessible and CORS is configured
-
-#### Routing Issues
-- The `vercel.json` includes rewrites for React Router
-- All routes should redirect to `index.html` for client-side routing
-
-## 🔗 Useful Links
-
-- [Vercel Documentation](https://vercel.com/docs)
-- [Create React App Deployment](https://create-react-app.dev/docs/deployment/)
-- [Environment Variables in Vercel](https://vercel.com/docs/concepts/projects/environment-variables)
-
-## 📞 Support
-
-If you encounter issues, check:
-1. Vercel build logs
-2. Browser developer console
-3. Network tab for API requests
-4. Backend API health endpoints
+Then redeploy.

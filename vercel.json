@@ -4,13 +4,21 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "framework": null,
-  "buildCommand": "cd apps/frontend && npm ci && npm run build",
+  "buildCommand": "cd apps/frontend && npm install && npm run build",
   "outputDirectory": "apps/frontend/build",
-  "installCommand": "echo 'Dependencies installed in build command'",
+  "installCommand": null,
   "env": {
     "NODE_ENV": "production",
-    "REACT_APP_API_URL": "https://your-backend-api.com/api"
+    "REACT_APP_API_URL": "https://your-backend-api.com/api",
+    "SKIP_PREFLIGHT_CHECK": "true",
+    "DISABLE_ESLINT_PLUGIN": "true"
   },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "regions": ["iad1"],
   "functions": {},
   "rewrites": [
     {
