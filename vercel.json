@@ -13,7 +13,6 @@
     "SKIP_PREFLIGHT_CHECK": "true",
     "DISABLE_ESLINT_PLUGIN": "true"
   },
-  "functions": {},
   "rewrites": [
     {
       "source": "/((?!api|_next|static|favicon.ico|manifest.json|sw.js).*)",
