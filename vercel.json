@@ -1,28 +1,19 @@
 {
   "version": 2,
   "name": "observatory-booking-frontend",
-  "cleanUrls": true,
-  "trailingSlash": false,
   "framework": null,
-  "buildCommand": "cd apps/frontend && npm install && npm run build",
+  "buildCommand": "npm --prefix apps/frontend install && npm --prefix apps/frontend run build",
   "outputDirectory": "apps/frontend/build",
-  "installCommand": null,
+  "installCommand": "",
   "env": {
     "NODE_ENV": "production",
     "REACT_APP_API_URL": "https://your-backend-api.com/api",
     "SKIP_PREFLIGHT_CHECK": "true",
     "DISABLE_ESLINT_PLUGIN": "true"
   },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  },
-  "regions": ["iad1"],
-  "functions": {},
   "rewrites": [
     {
-      "source": "/((?!static|api|favicon.ico|manifest.json|sw.js).*)",
+      "source": "/((?!api|_next|static|favicon.ico|manifest.json|sw.js).*)",
       "destination": "/index.html"
     }
   ],
@@ -37,7 +28,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(html|json|js|css))",
+      "source": "/(.*\\.(html|js|css|json))",
       "headers": [
         {
           "key": "Cache-Control",

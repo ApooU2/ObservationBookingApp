@@ -54,3 +54,20 @@ build-all.sh
 deploy*.sh
 setup*.sh
 start-dev.sh
+
+# Exclude everything except apps/frontend
+/*
+!/apps/
+/apps/*
+!/apps/frontend/
+
+# But still exclude build outputs and node_modules
+apps/frontend/build/
+apps/frontend/node_modules/
+
+# Exclude development files
+*.log
+.env.local
+.env.development
+.env.test
+.DS_Store
