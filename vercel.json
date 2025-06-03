@@ -4,7 +4,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "framework": null,
-  "buildCommand": "npm run build:frontend",
+  "buildCommand": "npm run build",
   "outputDirectory": "apps/frontend/build",
   "installCommand": "npm install",
   "env": {
