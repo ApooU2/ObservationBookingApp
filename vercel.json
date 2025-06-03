@@ -1,16 +1,19 @@
 {
   "version": 2,
   "name": "observatory-booking-frontend",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "framework": null,
-  "buildCommand": "npm --prefix apps/frontend install && npm --prefix apps/frontend run build",
+  "buildCommand": "npm run build:frontend",
   "outputDirectory": "apps/frontend/build",
-  "installCommand": "",
+  "installCommand": "npm install",
   "env": {
     "NODE_ENV": "production",
     "REACT_APP_API_URL": "https://your-backend-api.com/api",
     "SKIP_PREFLIGHT_CHECK": "true",
     "DISABLE_ESLINT_PLUGIN": "true"
   },
+  "functions": {},
   "rewrites": [
     {
       "source": "/((?!api|_next|static|favicon.ico|manifest.json|sw.js).*)",
