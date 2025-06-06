@@ -1,0 +1,19 @@
+# Node modules (let Vercel handle installation)
+node_modules/
+
+# Build outputs (Vercel will build fresh)
+build/
+dist/
+
+# Environment files
+.env.local
+.env.development
+.env.test
+
+# Development files
+*.log
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/

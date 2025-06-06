@@ -1,0 +1,13 @@
+{
+  "name": "observatory-booking-frontend-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend-only deployment for Observatory Booking App",
+  "scripts": {
+    "build": "echo 'Build handled by vercel.json buildCommand'",
+    "start": "echo 'This is a frontend-only deployment'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

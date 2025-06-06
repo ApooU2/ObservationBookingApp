@@ -55,7 +55,7 @@ class ObservatoryBookingPlugin {
         wp_localize_script('observatory-booking-app', 'observatoryBooking', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('observatory_booking_nonce'),
-            'apiUrl' => get_option('observatory_booking_api_url', 'http://localhost:5000/api')
+            'apiUrl' => get_option('observatory_booking_api_url', 'http://localhost:30001/api')
         ));
     }
     
@@ -85,7 +85,7 @@ class ObservatoryBookingPlugin {
         }
         
         // Proxy API requests to the Node.js backend
-        $api_url = get_option('observatory_booking_api_url', 'http://localhost:5000/api');
+        $api_url = get_option('observatory_booking_api_url', 'http://localhost:30001/api');
         $endpoint = sanitize_text_field($_POST['endpoint']);
         $method = sanitize_text_field($_POST['method']);
         $data = isset($_POST['data']) ? $_POST['data'] : array();
@@ -123,7 +123,7 @@ class ObservatoryBookingPlugin {
             echo '<div class="notice notice-success"><p>Settings saved!</p></div>';
         }
         
-        $api_url = get_option('observatory_booking_api_url', 'http://localhost:5000/api');
+        $api_url = get_option('observatory_booking_api_url', 'http://localhost:30001/api');
         ?>
         <div class="wrap">
             <h1>Observatory Booking Settings</h1>
@@ -179,7 +179,7 @@ new ObservatoryBookingPlugin();
 // Activation hook
 register_activation_hook(__FILE__, function() {
     // Create tables and set default options
-    update_option('observatory_booking_api_url', 'http://localhost:5000/api');
+    update_option('observatory_booking_api_url', 'http://localhost:30001/api');
 });
 
 // Deactivation hook
