@@ -47,29 +47,46 @@ const seedData = async () => {
     // Create telescopes
     const telescopes = [
       {
-        name: 'Celestron Schmidt-Cassegrain',
-        description: 'Professional 14-inch Schmidt-Cassegrain telescope perfect for deep sky observation and astrophotography. Features advanced computerized mount with GPS alignment.',
+        name: 'Meade 16-inch LX200 ACF',
+        description: 'Professional 16-inch Advanced Coma-Free telescope with f/10 optics. Features GPS alignment, AutoStar II controller, and Zero Image-Shift Microfocuser. Perfect for advanced research and astrophotography with coma-free pinpoint star images.',
         specifications: {
-          aperture: '14 inches (356mm)',
-          focalLength: '3910mm',
-          mountType: 'CGE Pro Computerized',
-          accessories: ['Eyepieces (25mm, 10mm)', 'Camera adapter', 'Finder scope', 'Laptop mount']
+          aperture: '16 inches (406mm)',
+          focalLength: '4064mm (f/10)',
+          mountType: 'LX200 Fork Mount with GPS',
+          accessories: [
+            'AutoStar II Controller (145,000 object database)',
+            'Zero Image-Shift Microfocuser',
+            'Primary Mirror Lock',
+            'SmartDrive PPEC',
+            'Ultra-High Transmission Coatings (UHTC)',
+            'GPS Receiver',
+            'AutoAlign System'
+          ]
         },
         location: 'Observatory Dome #1',
-        isActive: true
+        isActive: true,
+        maintenanceSchedule: new Date('2025-06-15')
       },
       {
-        name: 'Meade LX200 Refractor',
-        description: 'High-quality 8-inch refractor telescope ideal for planetary observation and lunar photography. Excellent for beginners and experienced astronomers alike.',
+        name: 'Sky-Watcher Classic 250P Dobsonian',
+        description: 'High-quality 10-inch Dobsonian telescope with Newtonian design and f/4.7 optics. Features parabolic primary mirror with RAQ coatings (94% reflectivity), 2-inch Crayford focuser, and heavy-duty rocker box. Ideal for visual astronomy and deep sky observation.',
         specifications: {
-          aperture: '8 inches (203mm)',
-          focalLength: '2032mm',
-          mountType: 'LX200 Motorized Fork',
-          accessories: ['Eyepiece set', 'Solar filter', 'Barlow lens', 'CCD camera']
+          aperture: '10 inches (254mm)',
+          focalLength: '1200mm (f/4.7)',
+          mountType: 'Dobsonian Rocker Box with Teflon Bearings',
+          accessories: [
+            '9x50 Finderscope',
+            '25mm Super Eyepiece (48x magnification)',
+            '10mm Super Eyepiece (120x magnification)',
+            '2-inch Crayford Focuser',
+            '1.25-inch Adapter',
+            'Tension Control Handle',
+            'Parabolic Primary Mirror with RAQ Coatings'
+          ]
         },
         location: 'Observatory Dome #2',
         isActive: true,
-        maintenanceSchedule: new Date('2025-07-15')
+        maintenanceSchedule: new Date('2025-08-20')
       }
     ];
 

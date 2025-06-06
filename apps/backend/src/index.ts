@@ -45,7 +45,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:30002",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
@@ -73,7 +73,7 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:30002",
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
   credentials: true
 }));
 
@@ -85,7 +85,7 @@ app.use(healthCheck);
 app.use(collectMetrics);
 app.use(securityMonitor);
 app.use(apiVersioning);
-app.use(validateContentType);
+app.use(validateContentType(['application/json', 'application/x-www-form-urlencoded']));
 
 app.use(generalLimiter);
 app.use(express.json({ limit: '10mb' }));
